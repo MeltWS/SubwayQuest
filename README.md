@@ -4,3 +4,5 @@ This Script will do the subway quest for you, it requires that you have 50k gold
 Also keep in mind the third step is only doable at night time.
 
 PathFinder script: https://github.com/MeltWS/ProShinePathfinder
+
+Thanks Migno for the locs of the npc.
