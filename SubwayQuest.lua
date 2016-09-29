@@ -112,7 +112,7 @@ end
 
 stepAction[4] = stepAction[2]
 
-stepAction[5] = function()
+stepAction[5] = function() -- farm for feather
     if feather then
         qStep = 6
         if not hasItem("Nocturnal Feather") then
@@ -132,8 +132,8 @@ stepAction[5] = function()
     end
 end
 
-stepAction[6] = stepAction[2]
-stepAction[7] = stepAction[1]
+stepAction[6] = stepAction[2] -- talk to npc in Route 16 house
+stepAction[7] = stepAction[1] -- talk to npc in Saffron City Station
 stepAction[8] = function() fatal("Subway quest completed.") end
 
 function onStart()
