@@ -3,7 +3,7 @@ author = "Melt"
 
 description = [[This script will clear the subway quest]]
 
-local pf          = require "Pathfinder/Maps_Pathfind" -- requesting table with methods
+local pf          = require "Pathfinder/Pathfinder/Maps_Pathfind" -- requesting table with methods
 local game        = require "Lib/gamelib"
 local stealMove   = "steal move"
 local solvingException = false
@@ -32,9 +32,9 @@ local exce = {
                                 {"Victory Road kant 3F", function() return moveToCell(61, 35) end}
     },
     ["Route 10"] = {{"Route 9", function() return moveToCell(91, 33) end},
-                    {"Route 10", function() return pf.MoveTo("Route 9") end}, 
-                    {"Rock Tunnel 1", function() return pf.MoveTo("Route 9") end}, 
-                    {"Rock Tunnel 2", function() return pf.MoveTo("Route 9") end}, 
+                    {"Route 10", function() return pf.MoveTo("Route 9") end},
+                    {"Rock Tunnel 1", function() return pf.MoveTo("Route 9") end},
+                    {"Rock Tunnel 2", function() return pf.MoveTo("Route 9") end},
     }
 }
 
@@ -46,7 +46,7 @@ local function needPC()
     if getPokemonHealth(1) == 0 or getRemainingPowerPoints(1, stealMove) == 0 then
     return true
     else return false
-    end 
+    end
 end
 
 local function setStealMove()
@@ -161,7 +161,7 @@ function onDialogMessage(message)
     for i, check in pairs(dialogs) do
         if message == check then
             qStep = i + 1
-        end 
+        end
     end
 end
 
