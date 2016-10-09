@@ -57,7 +57,7 @@ local function setStealMove()
     else
         i = game.getPokemonNumberWithMove("Covet")
         if not i then
-            return log("You need a Pokemon with Thief or Covet.")
+            return error("You need a Pokemon with Thief or Covet.")
         end
         stealMove = "Covet"
     end

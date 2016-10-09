@@ -32,7 +32,7 @@ stepAction[1] = function() -- talk to the thief NPC on top of Celadon Mart
 end
 
 stepAction[2] = function()
-    local nextLoc = itemLocs[itemCount]
+    local nextLoc = itemLocs[itemCount + 1]
     if nextLoc then
         findNextItem(nextLoc[1], nextLoc[2], nextLoc[3])
     elseif not pf.MoveTo("Celadon Mart 6") then

@@ -19,6 +19,22 @@ function game.getPokemonNumberWithMove(Move)
 	return false
 end
 
+local pokemonIdTeach = 1
+function game.tryTeachMove(movename, ItemName)
+    if not game.hasPokemonWithMove(movename) then
+        if pokemonIdTeach > getTeamSize() then
+            return fatal("No pokemon in this Team can learn: ".. ItemName)
+        else
+            log("Pokemon: " .. getPokemonName(pokemonIdTeach) .. " Try Learning: " .. ItemName)
+            useItemOnPokemon(ItemName, pokemonIdTeach)
+            pokemonIdTeach = pokemonIdTeach + 1
+            return
+        end
+    end
+    pokemonIdTeach = 1
+    return true
+end
+
 function game.iterTable(t, f)
 	for k, v in pairs(t) do
 		if f(k,v) then
