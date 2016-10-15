@@ -26,10 +26,10 @@ local brother = {
     {"Route 21", 26, 40},
 }
 local exce = {
-    ["Victory Road Kanto 2F"] = {{"Victory Road kant 3F", function() return moveToCell(35,33) end},
-                                {"Victory Road kant 2F", function() return moveToCell(62,11) end},
-                                {"Victory Road kant 2F", function() return moveToCell(57,25) end},
-                                {"Victory Road kant 3F", function() return moveToCell(61, 35) end}
+    ["Victory Road Kanto 2F"] = {{"Victory Road Kanto 3F", function() return moveToCell(35,33) end},
+                                {"Victory Road Kanto 2F", function() return moveToCell(62,11) end},
+                                {"Victory Road Kanto 2F", function() return moveToCell(57,25) end},
+                                {"Victory Road Kanto 3F", function() return moveToCell(61, 35) end}
     },
     ["Route 10"] = {{"Route 9", function() return moveToCell(91, 33) end},
                     {"Route 10", function() return pf.MoveTo("Route 9") end},

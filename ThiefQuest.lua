@@ -1,7 +1,7 @@
 name = "Thief Quest"
 author = "Melt"
 
-description = [[This script will clear the Thief quest, and buy one thief TM]]
+description = [[This script will clear the Thief quest, buy one thief TM, and teach it.]]
 
 local pf          = require "Pathfinder/Pathfinder/Maps_Pathfind" -- requesting table with methods of Pathfinder
 local qStep       = 1 -- quest step
@@ -15,16 +15,27 @@ local itemLocs    = {
     {"Celadon Mart 2", 13, 12},
     {"Celadon Mart 1", 17, 6},
 }
+local keepMoves = {"Cut", "Surf", "Dive", "Rock Smash"}
 local stepAction  = {}
 
-local function findNextItem(map, npcX, npcY)
-    if pf.MoveTo(map) then
-        return
-    elseif isNpcOnCell(npcX, npcY) then
-        talkToNpcOnCell(npcX, npcY)
-    else itemCount = itemCount + 1
+local function findItem(itemIndex)
+    local nextLoc = itemLocs[itemIndex]
+    if nextLoc then
+        local map = nextLoc[1]
+        local npcX = nextLoc[2]
+        local npcY = nextLoc[3]
+        if pf.MoveTo(map) then
+            return true
+        elseif isNpcOnCell(npcX, npcY) then
+            return talkToNpcOnCell(npcX, npcY)
+        else
+            itemCount = itemCount + 1
+            return findItem(itemCount + 1)
+        end
     end
+    return false
 end
+
 stepAction[1] = function() -- talk to the thief NPC on top of Celadon Mart
     if not pf.MoveTo("Celadon Mart 6") then
         return talkToNpcOnCell(7, 7)
@@ -32,19 +43,22 @@ stepAction[1] = function() -- talk to the thief NPC on top of Celadon Mart
 end
 
 stepAction[2] = function()
-    local nextLoc = itemLocs[itemCount + 1]
-    if nextLoc then
-        findNextItem(nextLoc[1], nextLoc[2], nextLoc[3])
-    elseif not pf.MoveTo("Celadon Mart 6") then
+    if not findItem(itemCount + 1) and not pf.MoveTo("Celadon Mart 6") then
         talkToNpcOnCell(7, 7)
     end
 end
 
 stepAction[3] = function()
-    fatal("Thief quest is over.")
+    game.tryTeachMove("Thief", "TM96")
 end
 
 function onStart()
+    if game.hasPokemonWithMove("Thief") then
+        fatal("Has Pokemon with move Thief, quest terminated.")
+    elseif hasItem("TM96") then
+        log("Already has item TM96 Thief, Skip to learning phase.")
+        qStep = 3
+    end
 end
 
 function onPathAction()
@@ -64,4 +78,8 @@ function onDialogMessage(message)
             end
         end
     end
+end
+
+function onLearningMove()
+    return forgetAnyMoveExcept(keepMoves)
 end
